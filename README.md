@@ -1,4 +1,4 @@
-# 📧 Email Bomber Demo (Educational)
+# 📧 Mail Boombing (Educational)
 
 ⚠️ **Disclaimer**  
 This project is for **educational/demo purposes only**.  
@@ -16,10 +16,10 @@ This project is for **educational/demo purposes only**.
 ---
 
 ## 🚀 Features
-- Sends test emails using Gmail SMTP
-- Custom subject & body
-- Colorful CLI output with ASCII banner
-- Adjustable number of emails
+- Sends test emails using Gmail SMTP  
+- Custom subject & body  
+- Colorful CLI output with ASCII banner  
+- Adjustable number of emails  
 
 ---
 
@@ -28,5 +28,5 @@ This project is for **educational/demo purposes only**.
 Clone the repo:
 
 ```bash
-git clone https://github.com/Monir-iMonetizeit/email-bomber-demo.git
-cd email-bomber-demo
+git clone https://github.com/Monir-iMonetizeit/mailboombing.git
+cd mailboombing
