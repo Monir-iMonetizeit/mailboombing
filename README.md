@@ -26,7 +26,4 @@ Do **NOT** use it for spamming or unsolicited messages. Misuse may be **illegal*
 
 ## 🚀 Installation
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/email-sending-demo.git
-   cd email-sending-demo
+
