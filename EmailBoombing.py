@@ -1,19 +1,74 @@
-# 📧 Email Sending Demo (Educational Only)
+import pyfiglet
+from colorama import init, Fore, Style
+import os
+import sys
+import time
+import smtplib
+from email.message import EmailMessage
 
-The **Email Sending Demo Tool** is a Python-based application created by **Monir Hasan** for **educational and demonstration purposes**. Its primary goal is to teach students and beginners how email automation works using Python’s built-in `smtplib` library, Gmail’s SMTP server, and modern authentication methods such as **App Passwords**.  
+# Initialize colorama
+init(autoreset=True)
 
-This project helps learners understand the core concepts of **SMTP (Simple Mail Transfer Protocol)**, which is the foundation of email communication on the internet. By working with this script, students can explore how email headers, subjects, recipients, and message bodies are structured and delivered. Unlike traditional tutorials, this tool includes **interactive input prompts**, a **custom ASCII banner**, and an **author information section** to make the learning experience engaging and professional.  
+# About section
+about_lines = [
+    "👤 Monir Hasan — Sales Manager & Affiliate Specialist at iMonetizeIt.",
+    "💼 5+ years in digital marketing & CPA monetization.",
+    "📍 Based in Bangladesh | 🎓 BBA in Accounting (ongoing)."
+]
 
-Users are able to:  
-- Enter their Gmail address and authenticate securely using a **16-character Gmail App Password** (never the normal Gmail password).  
-- Define their display name, recipient’s email, subject, and message body.  
-- Specify how many test emails should be sent in sequence.  
-- Watch real-time progress updates for each email sent, with clear success or error messages.  
+# Disclaimer
+disclaimer = Fore.YELLOW + Style.BRIGHT + (
+    "\n⚠️ Disclaimer: This is for educational/demo purposes only.\n"
+    "❌ Do NOT use this to send unsolicited emails. Misuse may be illegal.\n"
+)
 
-One of the unique aspects of this project is the inclusion of a **disclaimer and warning message**. The script strongly emphasizes that it must **not** be used for sending spam or unsolicited emails. Instead, it is designed purely for **classroom education, demonstrations, and controlled testing environments**.  
+# ASCII Banner (Your Name)
+ascii_banner = pyfiglet.figlet_format("Monir Hasan")
 
-The script runs on **Python 3.x** and is compatible with most operating systems, including Windows (CMD/PowerShell), Linux, and macOS. It also leverages the `pyfiglet` and `colorama` libraries to display an attractive banner and colorful terminal output, ensuring that the project feels more like a professional tool rather than a plain script.  
+def show_banner():
+    os.system('cls' if sys.platform.startswith('win') else 'clear')
+    print(Fore.MAGENTA + ascii_banner)   # Big Name Banner
+    for line in about_lines:
+        print(Fore.CYAN + line)          # About Info
+    print(disclaimer)                    # Disclaimer in Yellow
 
-This project reflects **Monir Hasan’s commitment to digital education** and his professional background as a **Sales Manager & Affiliate Specialist at iMonetizeIt**, with more than **five years of experience in digital marketing and CPA monetization**. By blending technical concepts with real-world caution and responsibility, this demo tool stands as an excellent example of how software projects can be both **educational and ethical**.  
+def send_test_email():
+    print(Fore.MAGENTA + "📧 Email Sending Demo\n")
+    print(Fore.CYAN + "🔑 Reminder: Use your 16-character Gmail App Password (not your normal Gmail password).\n")
 
-⚠️ **Reminder:** Misusing this script for spamming or malicious purposes is strictly prohibited and may be illegal. Always use it in a safe, controlled, and educational context.  
+    email = input("Your Gmail Address: ")
+    user = input("Your Name: ")
+    passwd = input("Your Gmail App Password (paste here): ")
+    to = input("Recipient Email: ")
+    subject = input("Email Subject: ")   # ✅ Added custom subject
+    body = input("Message: ")
+    total = int(input("How many emails to send? "))
+
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(email, passwd)
+
+            for i in range(1, total + 1):
+                msg = EmailMessage()
+                msg["Subject"] = f"{subject} (#{i})"
+                msg["From"] = f"{user} <{email}>"
+                msg["To"] = to
+                msg.set_content(body)
+
+                server.send_message(msg)
+                print(Fore.GREEN + f"✅ Email {i}/{total} sent successfully!")
+                time.sleep(1)  # delay so Gmail doesn’t block you
+
+    except smtplib.SMTPAuthenticationError:
+        print(Fore.RED + "\n❌ Authentication failed. Use an App Password, not your main Gmail password.")
+    except KeyboardInterrupt:
+        print("\n[-] Canceled by user")
+        sys.exit()
+    except Exception as e:
+        print(Fore.RED + f"\n⚠️ Error: {e}")
+        sys.exit()
+
+if __name__ == "__main__":
+    show_banner()
+    send_test_email()
