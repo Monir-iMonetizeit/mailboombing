@@ -7,10 +7,7 @@ ano 8.5                    emailboomber.py                     Modified
         print(Fore.RED + f"\n⚠️ Error: {e}")
         sys.exit()
 
-if __name__ == "__main__":
-    show_banner()
-    send_test_email(
-
++
 
 
 
